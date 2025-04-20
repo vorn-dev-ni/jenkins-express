@@ -1,0 +1,6 @@
+{
+  "watch": ["./"],
+  "ext": "ts,env",
+  "ignore": ["dist"],
+  "exec": "tsx --watch ./index.ts"
+}
