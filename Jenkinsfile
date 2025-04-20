@@ -28,6 +28,7 @@ pipeline {
                  ls -la
 
             '''
+            sh 'echo "build is done"'
 
         }
     }
