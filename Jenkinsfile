@@ -1,31 +1,39 @@
 pipeline {
     agent any
     stages {
-      stage('Hello') {
+      stage('Docker Info') {
         steps {
          
         sh 'docker version'
-        sh 'docker info'
         sh ''' 
           touch container_hello.txt
         '''
             }
         }
-     stage('pull node') {
-            agent {
-                docker {
-                    image 'node:18'
-                    reuseNode true
-                }
+    stage('Build') {
+        agent {
+            docker {
+                image 'node:18-alpine'
+                reuseNode true
             }
-            steps {
-                sh ''' 
-                echo "Docker has been pulled"
-                '''
-                sh 'touch container.txt'
-                sh 'npm --version'
-            }
+
         }
+        steps {
+
+            sh ''' 
+                 ls -la
+                 node --version
+                 npm --version
+                 npm ci
+                 npm run build
+                 npm run start
+
+            '''
+
+        }
+    }
+     
+    
         
     }
 }
